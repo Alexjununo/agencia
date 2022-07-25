@@ -1,6 +1,9 @@
 package Entities;
 
-public class Conta {
+import Helpers.SaldoInsuficienteException;
+import Interfaces.Tributavel;
+
+public abstract class Conta implements Tributavel {
     private static int NUMERO_DE_CONTAS = 0;
 
     private int numeroConta;
@@ -14,9 +17,17 @@ public class Conta {
         this.numeroConta = this.NUMERO_DE_CONTAS;
     }
 
-    public void saca(double valor) {}
+    public void saca(double valor) {
+        if (this.saldo <= 0) {
+            throw new SaldoInsuficienteException("Saldo insuficiente!");
+        }
 
-    public void deposita(double valor) {}
+        this.saldo -= valor;
+    }
+
+    public void deposita(double valor) {
+        this.saldo = valor;
+    }
 
     public void transfere(Conta destino, double valor) {}
 
@@ -33,4 +44,8 @@ public class Conta {
     }
 
     public void atualiza(double taxa) {}
+
+    public double getSaldo() {
+        return saldo;
+    }
 }
