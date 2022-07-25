@@ -1,7 +1,5 @@
 import Entities.Agencia;
 import Entities.Cliente;
-import Entities.Conta;
-import Entities.ContaCorrente;
 import Handlers.Menus;
 
 import java.util.Map;

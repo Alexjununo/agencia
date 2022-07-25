@@ -1,7 +1,8 @@
 package Entities;
 
 public class Conta {
-    private int NUMERO_DE_CONTAS;
+    private static int NUMERO_DE_CONTAS = 0;
+
     private int numeroConta;
     private Cliente titular;
     protected double saldo;

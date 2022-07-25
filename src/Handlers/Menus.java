@@ -142,8 +142,6 @@ public class Menus {
                     numeroConta = contaCorrente.getNumeroConta();
                     mapaDeContasCliente.put(numeroConta, contaCorrente);
                     mapaDeContasAgencia.put(numeroConta, contaCorrente);
-                    cliente.setContas(mapaDeContasCliente);
-                    agencia.setContas(mapaDeContasAgencia);
 
                     System.out.println("Conta criada com sucesso!!");
                     break;
@@ -156,8 +154,6 @@ public class Menus {
                     numeroConta = contaPoupanca.getNumeroConta();
                     mapaDeContasCliente.put(numeroConta, contaPoupanca);
                     mapaDeContasAgencia.put(numeroConta, contaPoupanca);
-                    cliente.setContas(mapaDeContasCliente);
-                    agencia.setContas(mapaDeContasAgencia);
 
                     System.out.println("Conta criada com sucesso!!");
                     break;
