@@ -2,16 +2,12 @@ package Handlers;
 
 import Entities.*;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Menus {
     public static void exibirMenu(Agencia agencia) {
-        int controle = 0;
+        int controle;
 
         Scanner read = new Scanner(System.in);
 
@@ -51,7 +47,7 @@ public class Menus {
     }
 
     public static void exibirMenuGerirContas(Agencia agencia) {
-        int controleGerirContas = 0;
+        int controleGerirContas;
 
         Scanner read = new Scanner(System.in);
 
@@ -69,18 +65,19 @@ public class Menus {
 
             switch (controleGerirContas) {
                 case 1:
+                    // TODO: try/catch
                     cadastrarConta(agencia);
                     break;
                 case 2:
-                    // TODO: desenvolver regra
-                    System.out.println("Aguardando");
+                    // TODO: try/catch
+                    atualizarConta(agencia);
                     break;
                 case 3:
-                    // TODO: desenvolver regra
-                    System.out.println("Aguardando");
+                    // TODO: try/catch
+                    listarContas(agencia);
                     break;
                 case 4:
-                    // TODO: desenvolver regra
+                    listarUmaConta(agencia);
                     System.out.println("Aguardando");
                     break;
                 case 5:
@@ -100,7 +97,7 @@ public class Menus {
         Scanner read = new Scanner(System.in);
 
         String cpf;
-        int controleConta = 0;
+        int controleConta;
         double saldoInicial;
         int numeroConta;
 
@@ -142,8 +139,6 @@ public class Menus {
                     numeroConta = contaCorrente.getNumeroConta();
                     mapaDeContasCliente.put(numeroConta, contaCorrente);
                     mapaDeContasAgencia.put(numeroConta, contaCorrente);
-                    cliente.setContas(mapaDeContasCliente);
-                    agencia.setContas(mapaDeContasAgencia);
 
                     System.out.println("Conta criada com sucesso!!");
                     break;
@@ -156,8 +151,6 @@ public class Menus {
                     numeroConta = contaPoupanca.getNumeroConta();
                     mapaDeContasCliente.put(numeroConta, contaPoupanca);
                     mapaDeContasAgencia.put(numeroConta, contaPoupanca);
-                    cliente.setContas(mapaDeContasCliente);
-                    agencia.setContas(mapaDeContasAgencia);
 
                     System.out.println("Conta criada com sucesso!!");
                     break;
@@ -168,5 +161,76 @@ public class Menus {
                     break;
             }
         } while (controleConta != 3);
+    }
+
+    public static void atualizarConta(Agencia agencia) {
+        Scanner read = new Scanner(System.in);
+
+        System.out.println("Informe o numero da conta: ");
+        int numeroConta = read.nextInt();
+
+        Map<Integer, Conta> contas = agencia.getContas();
+
+        Conta conta = contas.get(numeroConta);
+
+        if (conta == null) {
+            System.out.println("Conta nao encontrada");
+            return;
+        }
+
+        System.out.println("Informe o novo saldo da conta: ");
+        double novoSaldo = read.nextDouble();
+
+        conta.deposita(novoSaldo);
+    }
+
+    public static void listarContas(Agencia agencia) {
+        Scanner read = new Scanner(System.in);
+
+        Map<Integer, Conta> contas = agencia.getContas();
+
+        if (contas == null) {
+            return;
+        }
+
+        for (Integer key : contas.keySet()) {
+            Conta value = contas.get(key);
+
+            System.out.println("##########################################");
+            System.out.println("Numero da conta: " + value.getNumeroConta());
+            System.out.println("Tipo de conta: " + value.getClass());
+            System.out.println("Saldo: " + value.getSaldo());
+            System.out.println("##########################################");
+        }
+
+        System.out.println("Pressiona qualquer tecla para voltar! ");
+        String sair = read.next();
+    }
+
+    public static void listarUmaConta(Agencia agencia) {
+        Scanner read = new Scanner(System.in);
+
+        Map<Integer, Conta> contas = agencia.getContas();
+
+        if (contas == null) {
+            return;
+        }
+
+        System.out.println("Informe o numero da conta: ");
+        int numeroConta = read.nextInt();
+
+        Conta conta = contas.get(numeroConta);
+
+        if (conta ==  null) {
+            System.out.println("Conta nao encontrada!!");
+            return;
+        }
+
+        System.out.println("Numero da conta: " + conta.getNumeroConta());
+        System.out.println("Tipo da conta: " + conta.getClass());
+        System.out.println("Saldo: " + conta.getSaldo());
+
+        System.out.println("Pressiona qualquer tecla para voltar! ");
+        String sair = read.next();
     }
 }
