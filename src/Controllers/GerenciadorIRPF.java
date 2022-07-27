@@ -1,4 +1,4 @@
-package Control;
+package Controllers;
 
 import Interfaces.Tributavel;
 

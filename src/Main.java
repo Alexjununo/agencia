@@ -7,11 +7,12 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         Agencia agencia = new Agencia();
+        Menus menu = new Menus(agencia);
 
         // TODO: retirar metodo criarCliente abaixo no final
         criarCliente(agencia);
 
-        Menus.exibirMenu(agencia);
+        menu.exibirMenu();
     }
 
     public static void criarCliente (Agencia agenciaTeste) {

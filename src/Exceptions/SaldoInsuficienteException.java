@@ -1,4 +1,4 @@
-package Helpers;
+package Exceptions;
 
 public class SaldoInsuficienteException extends RuntimeException {
     private String message;

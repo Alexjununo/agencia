@@ -1,6 +1,6 @@
 package Entities;
 
-import Helpers.SaldoInsuficienteException;
+import Exceptions.SaldoInsuficienteException;
 import Interfaces.Tributavel;
 
 public abstract class Conta implements Tributavel {
@@ -13,8 +13,8 @@ public abstract class Conta implements Tributavel {
     public Conta(Cliente titular) {
         this.titular = titular;
 
-        this.NUMERO_DE_CONTAS++;
-        this.numeroConta = this.NUMERO_DE_CONTAS;
+        Conta.NUMERO_DE_CONTAS++;
+        this.numeroConta = Conta.NUMERO_DE_CONTAS;
     }
 
     public void saca(double valor) {
