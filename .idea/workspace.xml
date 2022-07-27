@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="be9a42f9-4282-46c5-833b-453228b383fb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Control/GerenciadorIRPF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/GerenciadorIRPF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/Conta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Conta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/GerirContas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/GerirContas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Handlers/Menus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Handlers/Menus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helpers/SaldoInsuficienteException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/SaldoInsuficienteException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,5 +78,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Handlers/Menus.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Handlers/Menus.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

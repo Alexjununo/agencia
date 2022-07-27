@@ -20,20 +20,17 @@ public class GerirContas {
     }
 
     public void cadastrarConta() {
-        String cpf;
-        double saldoInicial;
-        int numeroConta;
-
-        System.out.println("Informe o CPF de um cliente: ");
-        cpf = read.next();
-
         Map<String, Cliente> clientes = agencia.getClientes();
 
         if (clientes == null) {
-            System.out.println("Nao ha clientes cadastrados");
+            System.out.println("Nao ha clientes cadastrados! Deve cadastrar clientes antes de criar uma conta");
 
             return;
         }
+
+        System.out.println("Informe o CPF de um cliente: ");
+        String cpf = read.next();
+
 
         Cliente cliente = clientes.get(cpf);
 
@@ -51,6 +48,8 @@ public class GerirContas {
 
             controle = read.nextInt();
 
+            int numeroConta;
+            double saldoInicial;
             Map<Integer, Conta> mapaDeContasCliente = cliente.getContas();
             Map<Integer, Conta> mapaDeContasAgencia = agencia.getContas();
 
@@ -109,20 +108,19 @@ public class GerirContas {
     }
 
     public void listarContas() {
-        
         Map<Integer, Conta> contas = agencia.getContas();
         
         if (contas == null) {
             return;
         }
 
-        for (Integer key : contas.keySet()) {
-            Conta value = contas.get(key);
+        for (Integer numeroConta : contas.keySet()) {
+            Conta conta = contas.get(numeroConta);
 
             System.out.println("##########################################");
-            System.out.println("Numero da conta: " + value.getNumeroConta());
-            System.out.println("Tipo de conta: " + value.getClass());
-            System.out.println("Saldo: " + value.getSaldo());
+            System.out.println("Numero da conta: " + conta.getNumeroConta());
+            System.out.println("Tipo de conta: " + conta.getClass().getSimpleName());
+            System.out.println("Saldo: " + conta.getSaldo());
             System.out.println("##########################################");
         }
 
@@ -148,19 +146,21 @@ public class GerirContas {
             return;
         }
 
+        System.out.println("##########################################");
         System.out.println("Numero da conta: " + conta.getNumeroConta());
         System.out.println("Tipo da conta: " + conta.getClass());
         System.out.println("Saldo: " + conta.getSaldo());
+        System.out.println("##########################################");
 
         System.out.println("Pressiona qualquer tecla para voltar! ");
         read.next();
     }
 
     public void excluirConta() {
+        Map<Integer, Conta> contas = agencia.getContas();
+
         System.out.println("Informe o numero da conta: ");
         int numeroConta = read.nextInt();
-
-        Map<Integer, Conta> contas = agencia.getContas();
 
         Conta conta = contas.get(numeroConta);
 
@@ -170,10 +170,10 @@ public class GerirContas {
             return;
         }
 
-        System.out.println("Deseja realmente exluir conta? (S/N)");
-        String resposta = read.next();
+        System.out.println("Deseja realmente exluir conta? (1 - Sim / 2 - Nao)");
+        controle = read.nextInt();
 
-        if (resposta.equals("S")) {
+        if (controle == 1) {
             Cliente titular = conta.getTitular();
             Map<Integer, Conta> mapaDeContasCliente = titular.getContas();
 

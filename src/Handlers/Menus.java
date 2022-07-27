@@ -4,15 +4,20 @@ import Entities.*;
 
 import java.util.Scanner;
 
+import Controllers.GerirClientes;
 import Controllers.GerirContas;
 
 public class Menus {
     static int controle;
     static Scanner read = new Scanner(System.in);
     static Agencia agencia;
+    static GerirContas gerirContas;
+    static GerirClientes gerirClientes;
 
     public Menus(Agencia agencia) {
         Menus.agencia = agencia;
+        Menus.gerirContas = new GerirContas(agencia, read);
+        Menus.gerirClientes = new GerirClientes(agencia, read);
     }
 
     public void exibirMenu() {
@@ -55,8 +60,6 @@ public class Menus {
     }
 
     public static void exibirMenuGerirContas() {
-        GerirContas gerirContas = new GerirContas(agencia, read);
-
         do {
             System.out.println("##########################################");
             System.out.println("############### GERIR CONTAS ##############");
@@ -73,23 +76,18 @@ public class Menus {
 
             switch (controle) {
                 case 1:
-                    // TODO: try/catch
                     gerirContas.cadastrarConta();
                     break;
                 case 2:
-                    // TODO: try/catch
                     gerirContas.atualizarConta();
                     break;
                 case 3:
-                    // TODO: try/catch
                     gerirContas.listarContas();
                     break;
                 case 4:
-                    // TODO: try/catch
                     gerirContas.listarUmaConta();
                     break;
                 case 5:
-                    // TODO: try/catch
                     gerirContas.excluirConta();
                     break;
                 default:
@@ -101,7 +99,45 @@ public class Menus {
         } while (controle != 6);
     }
 
-    public static void exibirMenuGerirClientes() {}
+    public static void exibirMenuGerirClientes() {
+        do {
+            System.out.println("##########################################");
+            System.out.println("############### GERIR CLIENTES ##############");
+            System.out.println("##########################################");
+            System.out.println("1 - Cadastrar cliente");
+            System.out.println("2 - Atualizar cliente");
+            System.out.println("3 - Listar clientes");
+            System.out.println("4 - Listar um cliente");
+            System.out.println("5 - Excluir cliente");
+            System.out.println("6 - Voltar");
+            System.out.println("##########################################");
+            System.out.println("Informe a opcao desejada: ");
+            controle = read.nextInt();
+
+            switch (controle) {
+                case 1:
+                    gerirClientes.cadastrarCliente();
+                    break;
+                case 2:
+                    gerirClientes.atualizarCliente();
+                    break;
+                case 3:
+                    gerirClientes.listarClientes();
+                    break;
+                case 4:
+                    gerirClientes.listarUmCliente();
+                    break;
+                case 5:
+                    gerirClientes.excluirCliente();
+                    break;
+                default:
+                    if (controle != 6) {
+                        System.out.println("Opcao invalida");
+                    }
+                    break;
+            }
+        } while (controle != 6);
+    }
 
     public static void exibirMenuGerirTransacoes() {}
 
