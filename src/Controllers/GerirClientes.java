@@ -45,7 +45,7 @@ public class GerirClientes {
 
         GerirContas gerirContas = new GerirContas(agencia, read);
 
-        gerirContas.cadastrarConta();
+        gerirContas.criarContaParaCliente(cliente, agencia);
     }
 
     public void atualizarCliente() {

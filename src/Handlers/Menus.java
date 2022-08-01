@@ -11,6 +11,9 @@ import Controllers.GerirContas;
 import Controllers.GerirTransacoes;
 
 public class Menus {
+    private static final String NÃO_EXISTEM_CONTAS_CADASTRADAS = "Não existem contas cadastradas";
+    private static final String CLIENTE_NÃO_ENCONTRADO = "Cliente não encontrado";
+    private static final String NÃO_EXISTEM_CLIENTES_CADASTRADOS = "Não existem clientes cadastrados";
     private static final String OPÇÃO_INVALIDA = "Opção invalida!";
 
     static int controle;
@@ -19,14 +22,12 @@ public class Menus {
     static GerirContas gerirContas;
     static GerirClientes gerirClientes;
     static GerirTransacoes gerirTransacoes;
-    static GerenciadorIRPF gerenciadorIrpf;
 
     public Menus() {
         Menus.agencia = new Agencia();
         Menus.gerirContas = new GerirContas(agencia, read);
         Menus.gerirClientes = new GerirClientes(agencia, read);
         Menus.gerirTransacoes = new GerirTransacoes(agencia, read);
-        Menus.gerenciadorIrpf = new GerenciadorIRPF();
     }
 
     public void exibirMenu() {
@@ -187,26 +188,28 @@ public class Menus {
         Map<String, Cliente> clientes = agencia.getClientes();
 
         if (clientes == null) {
-            System.out.println("Não existem clientes cadastrados");
+            System.out.println(NÃO_EXISTEM_CLIENTES_CADASTRADOS);
         }
 
         Cliente cliente = clientes.get(cpf);
 
         if (cliente == null) {
-            System.out.println("Cliente não encontrado");
+            System.out.println(CLIENTE_NÃO_ENCONTRADO);
         }
 
         Map<Integer, Conta> contas = cliente.getContas();
 
         if (contas == null) {
-            System.out.println("Não existem contas cadastradas");
+            System.out.println(NÃO_EXISTEM_CONTAS_CADASTRADAS);
         }
+
+        GerenciadorIRPF gerirIRPF = new GerenciadorIRPF();
 
         for (Conta conta : contas.values()) {
-            gerenciadorIrpf.adicionaTributavel(conta);
+            gerirIRPF.adicionaTributavel(conta);
         }
 
-        System.out.println("O valor do IRPF e de: " + gerenciadorIrpf.getTotal());
+        System.out.println("O valor do IRPF e de: " + gerirIRPF.getTotal());
 
         System.out.println("Pressione qualquer tecla para voltar!");
         read.next();

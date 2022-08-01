@@ -23,26 +23,7 @@ public class GerirContas {
         GerirContas.read = read;
     }
 
-    public void cadastrarConta() {
-        Map<String, Cliente> clientes = agencia.getClientes();
-
-        if (clientes == null) {
-            System.out.println("Não há clientes cadastrados! Deve cadastrar clientes antes de criar uma conta");
-
-            return;
-        }
-
-        System.out.println("Informe o CPF de um cliente: ");
-        String cpf = read.next();
-
-        Cliente cliente = clientes.get(cpf);
-
-        if (cliente == null) {
-            System.out.println(CLIENTE_NAO_ENCONTRADO);
-
-            return;
-        }
-
+    public void criarContaParaCliente(Cliente cliente, Agencia agencia) {
         do {
             System.out.println("Informe o tipo de Conta: ");
             System.out.println("1 - Conta Corrente ");
@@ -90,6 +71,29 @@ public class GerirContas {
         } while (controle != 3);
     }
 
+    public void cadastrarConta() {
+        Map<String, Cliente> clientes = agencia.getClientes();
+
+        if (clientes == null) {
+            System.out.println("Não há clientes cadastrados! Deve cadastrar clientes antes de criar uma conta");
+
+            return;
+        }
+
+        System.out.println("Informe o CPF de um cliente: ");
+        String cpf = read.next();
+
+        Cliente cliente = clientes.get(cpf);
+
+        if (cliente == null) {
+            System.out.println(CLIENTE_NAO_ENCONTRADO);
+
+            return;
+        }
+
+        criarContaParaCliente(cliente, agencia);
+    }
+
     public void atualizarConta() {
         System.out.println("Informe o número da conta: ");
         int numeroConta = read.nextInt();
@@ -107,7 +111,7 @@ public class GerirContas {
         System.out.println("Informe o novo saldo da conta: ");
         double novoSaldo = read.nextDouble();
 
-        conta.deposita(novoSaldo);
+        conta.atualiza(novoSaldo);
     }
 
     public void listarContas() {

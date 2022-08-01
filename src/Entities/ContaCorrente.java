@@ -11,4 +11,9 @@ public class ContaCorrente extends Conta {
     public double calculaTributos() {
         return this.saldo * TAXA;
     }
+
+    @Override
+    public void atualiza(double taxa) {
+        this.saldo -= taxa;
+    }
 }
