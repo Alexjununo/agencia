@@ -89,7 +89,7 @@ public class GerirClientes {
         }
 
         
-        System.out.println("Pressiona qualquer tecla para voltar! ");
+        System.out.println("Pressione qualquer tecla para voltar! ");
         read.next();
     }
 
@@ -114,7 +114,7 @@ public class GerirClientes {
         System.out.println("Total de contas: " + cliente.getContas().size());
         System.out.println("##########################################");
         
-        System.out.println("Pressiona qualquer tecla para voltar! ");
+        System.out.println("Pressione qualquer tecla para voltar! ");
         read.next();
     }
 

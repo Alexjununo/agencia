@@ -124,7 +124,7 @@ public class GerirContas {
             System.out.println("##########################################");
         }
 
-        System.out.println("Pressiona qualquer tecla para voltar! ");
+        System.out.println("Pressione qualquer tecla para voltar! ");
         read.next();
     }
 
@@ -152,7 +152,7 @@ public class GerirContas {
         System.out.println("Saldo: " + conta.getSaldo());
         System.out.println("##########################################");
 
-        System.out.println("Pressiona qualquer tecla para voltar! ");
+        System.out.println("Pressione qualquer tecla para voltar! ");
         read.next();
     }
 

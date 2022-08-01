@@ -18,18 +18,32 @@ public abstract class Conta implements Tributavel {
     }
 
     public void saca(double valor) {
-        if (this.saldo <= 0) {
-            throw new SaldoInsuficienteException("Saldo insuficiente!");
+        double saldoConta = this.saldo;
+        saldoConta -= valor;
+        
+        if (valor < 0) {
+            throw new IllegalArgumentException("Valor invalido para o saque");
         }
 
-        this.saldo -= valor;
+        if (saldoConta < 0) {
+            throw new SaldoInsuficienteException("Saldo insuficiente para saque");
+        }
+
+        this.saldo = saldoConta;
     }
 
     public void deposita(double valor) {
-        this.saldo = valor;
+        if (valor < 0) {
+            throw new IllegalArgumentException("Valor invalido para o deposito");
+        }
+
+        this.saldo += valor;
     }
 
-    public void transfere(Conta destino, double valor) {}
+    public void transfere(Conta destino, double valor) {
+        this.saca(valor);
+        destino.deposita(valor);
+    }
 
     public Cliente getTitular() {
         return titular;

@@ -2,10 +2,13 @@ package Handlers;
 
 import Entities.*;
 
+import java.util.Map;
 import java.util.Scanner;
 
+import Controllers.GerenciadorIRPF;
 import Controllers.GerirClientes;
 import Controllers.GerirContas;
+import Controllers.GerirTransacoes;
 
 public class Menus {
     static int controle;
@@ -13,11 +16,15 @@ public class Menus {
     static Agencia agencia;
     static GerirContas gerirContas;
     static GerirClientes gerirClientes;
+    static GerirTransacoes gerirTransacoes;
+    static GerenciadorIRPF gerenciadorIrpf;
 
     public Menus(Agencia agencia) {
         Menus.agencia = agencia;
         Menus.gerirContas = new GerirContas(agencia, read);
         Menus.gerirClientes = new GerirClientes(agencia, read);
+        Menus.gerirTransacoes = new GerirTransacoes(agencia, read);
+        Menus.gerenciadorIrpf = new GerenciadorIRPF();
     }
 
     public void exibirMenu() {
@@ -45,7 +52,7 @@ public class Menus {
                     exibirMenuGerirTransacoes();
                     break;
                 case 4:
-                    exibirMenuGerirIRPF();
+                    gerirIRPF();
                     break;
                 case 5:
                     System.out.println("Saindo do sistema...");
@@ -139,7 +146,67 @@ public class Menus {
         } while (controle != 6);
     }
 
-    public static void exibirMenuGerirTransacoes() {}
+    public static void exibirMenuGerirTransacoes() {
+        do {
+            System.out.println("##########################################");
+            System.out.println("############### GERIR TRANSACOES ##############");
+            System.out.println("##########################################");
+            System.out.println("1 - Saque");
+            System.out.println("2 - Deposito");
+            System.out.println("3 - Transferencia");
+            System.out.println("4 - Voltar");
+            System.out.println("##########################################");
+            System.out.println("Informe a opcao desejada: ");
+            controle = read.nextInt();
 
-    public static void exibirMenuGerirIRPF() {}
+            switch (controle) {
+                case 1:
+                    gerirTransacoes.sacar();
+                    break;
+                case 2:
+                    gerirTransacoes.depositar();
+                    break;
+                case 3:
+                    gerirTransacoes.transferir();
+                    break;
+                default:
+                    if (controle != 4) {
+                        System.out.println("Opcao invalida");
+                    }
+                    break;
+            }
+        } while (controle != 4);
+    }
+
+    public static void gerirIRPF() {
+        System.out.println("Informe o CPF do cliente: ");
+        String cpf = read.next();
+
+        Map<String, Cliente> clientes = agencia.getClientes();
+
+        if (clientes == null) {
+            System.out.println("Nao existem clientes cadastrados");
+        }
+
+        Cliente cliente = clientes.get(cpf);
+
+        if (cliente == null) {
+            System.out.println("Cliente nao encontrado");
+        } 
+
+        Map<Integer, Conta> contas = cliente.getContas();
+
+        if (contas == null) {
+            System.out.println("Nao existem contas cadastradas");
+        }
+
+        for (Conta conta : contas.values()) {
+            gerenciadorIrpf.adicionaTributavel(conta);
+        }
+
+        System.out.println("O valor do IRPF e de: " + gerenciadorIrpf.getTotal());
+
+        System.out.println("Pressione qualquer tecla para voltar!");
+        read.next();
+    }
 }

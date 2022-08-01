@@ -5,7 +5,7 @@ import Interfaces.Tributavel;
 public class GerenciadorIRPF {
     private double total;
 
-    void adicionaTributavel(Tributavel t) {
+    public void adicionaTributavel(Tributavel t) {
         this.total += t.calculaTributos();
     }
 
