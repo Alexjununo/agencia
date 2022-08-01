@@ -10,6 +10,10 @@ import Entities.ContaCorrente;
 import Entities.ContaPoupanca;
 
 public class GerirContas {
+    private static final String CLIENTE_NAO_ENCONTRADO = "Cliente não encontrado! Deve cadastrar o cliente antes de criar uma conta";
+    private static final String CONTA_NAO_ENCONTRADA = "Conta não encontrada";
+    private static final String OPCAO_INVALIDA = "Opção invalida!";
+
     static int controle;
     static Scanner read;
     static Agencia agencia;
@@ -23,7 +27,7 @@ public class GerirContas {
         Map<String, Cliente> clientes = agencia.getClientes();
 
         if (clientes == null) {
-            System.out.println("Nao ha clientes cadastrados! Deve cadastrar clientes antes de criar uma conta");
+            System.out.println("Não há clientes cadastrados! Deve cadastrar clientes antes de criar uma conta");
 
             return;
         }
@@ -31,19 +35,18 @@ public class GerirContas {
         System.out.println("Informe o CPF de um cliente: ");
         String cpf = read.next();
 
-
         Cliente cliente = clientes.get(cpf);
 
         if (cliente == null) {
-            System.out.println("Cliente nao encontrado! Deve cadastrar o cliente antes de criar uma conta");
+            System.out.println(CLIENTE_NAO_ENCONTRADO);
 
             return;
         }
 
         do {
             System.out.println("Informe o tipo de Conta: ");
-            System.out.println("1 - Conta corrente ");
-            System.out.println("2 - Conta Poupanca ");
+            System.out.println("1 - Conta Corrente ");
+            System.out.println("2 - Conta Poupança ");
             System.out.println("3 - Voltar ");
 
             controle = read.nextInt();
@@ -80,7 +83,7 @@ public class GerirContas {
                     break;
                 default:
                     if (controle != 3) {
-                        System.out.println("Opcao invalida");
+                        System.out.println(OPCAO_INVALIDA);
                     }
                     break;
             }
@@ -88,7 +91,7 @@ public class GerirContas {
     }
 
     public void atualizarConta() {
-        System.out.println("Informe o numero da conta: ");
+        System.out.println("Informe o número da conta: ");
         int numeroConta = read.nextInt();
 
         Map<Integer, Conta> contas = agencia.getContas();
@@ -96,7 +99,7 @@ public class GerirContas {
         Conta conta = contas.get(numeroConta);
 
         if (conta == null) {
-            System.out.println("Conta nao encontrada");
+            System.out.println(CONTA_NAO_ENCONTRADA);
 
             return;
         }
@@ -109,75 +112,77 @@ public class GerirContas {
 
     public void listarContas() {
         Map<Integer, Conta> contas = agencia.getContas();
-        
+
         if (contas == null) {
+            System.out.println(CONTA_NAO_ENCONTRADA);
+
             return;
         }
 
-        for (Integer numeroConta : contas.keySet()) {
-            Conta conta = contas.get(numeroConta);
-
+        for (Conta conta : contas.values()) {
             System.out.println("##########################################");
-            System.out.println("Numero da conta: " + conta.getNumeroConta());
+            System.out.println("Número da conta: " + conta.getNumeroConta());
             System.out.println("Tipo de conta: " + conta.getClass().getSimpleName());
             System.out.println("Saldo: " + conta.getSaldo());
             System.out.println("##########################################");
         }
 
-        System.out.println("Pressione qualquer tecla para voltar! ");
+        System.out.println("Pressione qualquer tecla para voltar!");
         read.next();
     }
 
     public void listarUmaConta() {
         Map<Integer, Conta> contas = agencia.getContas();
-        
+
         if (contas == null) {
+            System.out.println(CONTA_NAO_ENCONTRADA);
+
             return;
         }
 
-        System.out.println("Informe o numero da conta: ");
+        System.out.println("Informe o número da conta: ");
         int numeroConta = read.nextInt();
 
         Conta conta = contas.get(numeroConta);
 
-        if (conta ==  null) {
-            System.out.println("Conta nao encontrada!!");
+        if (conta == null) {
+            System.out.println(CONTA_NAO_ENCONTRADA);
 
             return;
         }
 
         System.out.println("##########################################");
-        System.out.println("Numero da conta: " + conta.getNumeroConta());
+        System.out.println("Número da conta: " + conta.getNumeroConta());
         System.out.println("Tipo da conta: " + conta.getClass());
         System.out.println("Saldo: " + conta.getSaldo());
         System.out.println("##########################################");
 
-        System.out.println("Pressione qualquer tecla para voltar! ");
+        System.out.println("Pressione qualquer tecla para voltar!");
         read.next();
     }
 
     public void excluirConta() {
         Map<Integer, Conta> contas = agencia.getContas();
 
-        System.out.println("Informe o numero da conta: ");
+        System.out.println("Informe o número da conta: ");
         int numeroConta = read.nextInt();
 
         Conta conta = contas.get(numeroConta);
 
         if (conta == null) {
-            System.out.println("Conta nao encontrada!!");
+            System.out.println(CONTA_NAO_ENCONTRADA);
 
             return;
         }
 
-        System.out.println("Deseja realmente exluir conta? (1 - Sim / 2 - Nao)");
+        System.out.println("Deseja realmente excluir conta? (1 - Sim / 2 - Não)");
         controle = read.nextInt();
 
         if (controle == 1) {
             Cliente titular = conta.getTitular();
             Map<Integer, Conta> mapaDeContasCliente = titular.getContas();
 
-            if(mapaDeContasCliente.size() == 1) {
+            if (mapaDeContasCliente.size() == 1) {
                 Map<String, Cliente> clientes = agencia.getClientes();
 
                 clientes.remove(titular.getCpf());
@@ -186,9 +191,9 @@ public class GerirContas {
             }
 
             contas.remove(numeroConta);
-            System.out.println("Conta excluida com sucesso!!");
+            System.out.println("Conta excluída com sucesso!!");
         } else {
-            System.out.println("Conta nao excluida!!");
+            System.out.println("Conta no excluida!!");
         }
     }
 }

@@ -7,6 +7,10 @@ import Entities.Agencia;
 import Entities.Conta;
 
 public class GerirTransacoes {
+    /**
+     *
+     */
+    private static final String CONTA_NAO_ENCONTRADA = "Conta nao encontrada!!";
     static Scanner read;
     static Agencia agencia;
 
@@ -16,7 +20,7 @@ public class GerirTransacoes {
     }
 
     public void sacar() {
-        System.out.println("Informe o numero da conta: ");
+        System.out.println("Informe o número da conta: ");
         int numeroConta = read.nextInt();
 
         Map<Integer, Conta> contas = agencia.getContas();
@@ -28,7 +32,7 @@ public class GerirTransacoes {
         Conta conta = contas.get(numeroConta);
 
         if (conta == null) {
-            System.out.println("Conta nao encontrada!!");
+            System.out.println(CONTA_NAO_ENCONTRADA);
 
             return;
         }
@@ -43,7 +47,7 @@ public class GerirTransacoes {
     }
 
     public void depositar() {
-        System.out.println("Informe o numero da conta: ");
+        System.out.println("Informe o número da conta: ");
         int numeroConta = read.nextInt();
 
         Map<Integer, Conta> contas = agencia.getContas();
@@ -55,7 +59,7 @@ public class GerirTransacoes {
         Conta conta = contas.get(numeroConta);
 
         if (conta == null) {
-            System.out.println("Conta nao encontrada!!");
+            System.out.println(CONTA_NAO_ENCONTRADA);
 
             return;
         }
@@ -70,7 +74,7 @@ public class GerirTransacoes {
     }
 
     public void transferir() {
-        System.out.println("Informe o numero da conta de origem: ");
+        System.out.println("Informe o número da conta de origem: ");
         int numeroConta = read.nextInt();
 
         Map<Integer, Conta> contas = agencia.getContas();
@@ -82,18 +86,18 @@ public class GerirTransacoes {
         Conta contaOrigem = contas.get(numeroConta);
 
         if (contaOrigem == null) {
-            System.out.println("Conta nao encontrada!!");
+            System.out.println(CONTA_NAO_ENCONTRADA);
 
             return;
         }
 
-        System.out.println("Informe o numero da conta de destino: ");
+        System.out.println("Informe o número da conta de destino: ");
         numeroConta = read.nextInt();
 
         Conta contaDestino = contas.get(numeroConta);
 
         if (contaDestino == null) {
-            System.out.println("Conta nao encontrada!!");
+            System.out.println(CONTA_NAO_ENCONTRADA);
 
             return;
         }

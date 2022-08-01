@@ -11,6 +11,8 @@ import Controllers.GerirContas;
 import Controllers.GerirTransacoes;
 
 public class Menus {
+    private static final String OPÇÃO_INVALIDA = "Opção invalida!";
+
     static int controle;
     static Scanner read = new Scanner(System.in);
     static Agencia agencia;
@@ -19,8 +21,8 @@ public class Menus {
     static GerirTransacoes gerirTransacoes;
     static GerenciadorIRPF gerenciadorIrpf;
 
-    public Menus(Agencia agencia) {
-        Menus.agencia = agencia;
+    public Menus() {
+        Menus.agencia = new Agencia();
         Menus.gerirContas = new GerirContas(agencia, read);
         Menus.gerirClientes = new GerirClientes(agencia, read);
         Menus.gerirTransacoes = new GerirTransacoes(agencia, read);
@@ -34,13 +36,13 @@ public class Menus {
             System.out.println("##########################################");
             System.out.println("1 - Gerir Contas");
             System.out.println("2 - Gerir Clientes");
-            System.out.println("3 - Gerir Transacoes");
+            System.out.println("3 - Gerir Transações");
             System.out.println("4 - Gerir IRPF");
             System.out.println("5 - Sair");
             System.out.println("##########################################");
-            System.out.println("Informe a opcao desejada: ");
+            System.out.println("Informe a opção desejada: ");
             controle = read.nextInt();
-    
+
             switch (controle) {
                 case 1:
                     exibirMenuGerirContas();
@@ -58,7 +60,7 @@ public class Menus {
                     System.out.println("Saindo do sistema...");
                     break;
                 default:
-                    System.out.println("Opcao invalida!");
+                    System.out.println(OPÇÃO_INVALIDA);
                     break;
             }
         } while (controle != 5);
@@ -78,7 +80,7 @@ public class Menus {
             System.out.println("5 - Excluir conta");
             System.out.println("6 - Voltar");
             System.out.println("##########################################");
-            System.out.println("Informe a opcao desejada: ");
+            System.out.println("Informe a opção desejada: ");
             controle = read.nextInt();
 
             switch (controle) {
@@ -99,7 +101,7 @@ public class Menus {
                     break;
                 default:
                     if (controle != 6) {
-                        System.out.println("Opcao invalida");
+                        System.out.println(OPÇÃO_INVALIDA);
                     }
                     break;
             }
@@ -118,7 +120,7 @@ public class Menus {
             System.out.println("5 - Excluir cliente");
             System.out.println("6 - Voltar");
             System.out.println("##########################################");
-            System.out.println("Informe a opcao desejada: ");
+            System.out.println("Informe a opção desejada: ");
             controle = read.nextInt();
 
             switch (controle) {
@@ -139,7 +141,7 @@ public class Menus {
                     break;
                 default:
                     if (controle != 6) {
-                        System.out.println("Opcao invalida");
+                        System.out.println(OPÇÃO_INVALIDA);
                     }
                     break;
             }
@@ -149,14 +151,14 @@ public class Menus {
     public static void exibirMenuGerirTransacoes() {
         do {
             System.out.println("##########################################");
-            System.out.println("############### GERIR TRANSACOES ##############");
+            System.out.println("############### GERIR TRANSAÇÕES ##############");
             System.out.println("##########################################");
             System.out.println("1 - Saque");
-            System.out.println("2 - Deposito");
-            System.out.println("3 - Transferencia");
+            System.out.println("2 - Depósito");
+            System.out.println("3 - Transferência");
             System.out.println("4 - Voltar");
             System.out.println("##########################################");
-            System.out.println("Informe a opcao desejada: ");
+            System.out.println("Informe a opção desejada: ");
             controle = read.nextInt();
 
             switch (controle) {
@@ -171,7 +173,7 @@ public class Menus {
                     break;
                 default:
                     if (controle != 4) {
-                        System.out.println("Opcao invalida");
+                        System.out.println(OPÇÃO_INVALIDA);
                     }
                     break;
             }
@@ -185,19 +187,19 @@ public class Menus {
         Map<String, Cliente> clientes = agencia.getClientes();
 
         if (clientes == null) {
-            System.out.println("Nao existem clientes cadastrados");
+            System.out.println("Não existem clientes cadastrados");
         }
 
         Cliente cliente = clientes.get(cpf);
 
         if (cliente == null) {
-            System.out.println("Cliente nao encontrado");
-        } 
+            System.out.println("Cliente não encontrado");
+        }
 
         Map<Integer, Conta> contas = cliente.getContas();
 
         if (contas == null) {
-            System.out.println("Nao existem contas cadastradas");
+            System.out.println("Não existem contas cadastradas");
         }
 
         for (Conta conta : contas.values()) {

@@ -4,6 +4,9 @@ import Exceptions.SaldoInsuficienteException;
 import Interfaces.Tributavel;
 
 public abstract class Conta implements Tributavel {
+    private static final String SALDO_INSUFICIENTE_PARA_SAQUE = "Saldo insuficiente para saque";
+    private static final String VALOR_INVALIDO_PARA_O_DEPOSITO = "Valor invalido para o deposito";
+
     private static int NUMERO_DE_CONTAS = 0;
 
     private int numeroConta;
@@ -18,31 +21,49 @@ public abstract class Conta implements Tributavel {
     }
 
     public void saca(double valor) {
-        double saldoConta = this.saldo;
-        saldoConta -= valor;
-        
-        if (valor < 0) {
-            throw new IllegalArgumentException("Valor invalido para o saque");
-        }
+        try {
+            double saldoConta = this.saldo;
+            saldoConta -= valor;
 
-        if (saldoConta < 0) {
-            throw new SaldoInsuficienteException("Saldo insuficiente para saque");
-        }
+            if (valor < 0) {
+                throw new IllegalArgumentException(VALOR_INVALIDO_PARA_O_DEPOSITO);
+            }
 
-        this.saldo = saldoConta;
+            if (saldoConta < 0) {
+                throw new SaldoInsuficienteException(SALDO_INSUFICIENTE_PARA_SAQUE);
+            }
+
+            this.saldo = saldoConta;
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+
+            return;
+        }
     }
 
     public void deposita(double valor) {
-        if (valor < 0) {
-            throw new IllegalArgumentException("Valor invalido para o deposito");
-        }
+        try {
+            if (valor < 0) {
+                throw new IllegalArgumentException(VALOR_INVALIDO_PARA_O_DEPOSITO);
+            }
 
-        this.saldo += valor;
+            this.saldo += valor;
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+
+            return;
+        }
     }
 
     public void transfere(Conta destino, double valor) {
-        this.saca(valor);
-        destino.deposita(valor);
+        try {
+            this.saca(valor);
+            destino.deposita(valor);
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+
+            return;
+        }
     }
 
     public Cliente getTitular() {
@@ -57,7 +78,8 @@ public abstract class Conta implements Tributavel {
         return numeroConta;
     }
 
-    public void atualiza(double taxa) {}
+    public void atualiza(double taxa) {
+    }
 
     public double getSaldo() {
         return saldo;
